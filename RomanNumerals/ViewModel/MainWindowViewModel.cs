@@ -17,10 +17,12 @@ namespace RomanNumerals.ViewModel
         private ICommand generateCommand;
         private ICommand clearCommand;
         private RomanNumeralGenerator generator;
+        private string history;
 
         public MainWindowViewModel()
         {
             generator = new RomanNumeralGenerator();
+            History = string.Format("{0,-20}{1,-15}\n", "Arabic", "Roman");
         }
 
         public string NumberInput
@@ -39,6 +41,16 @@ namespace RomanNumerals.ViewModel
             set
             {
                 this.romanOutput = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string History
+        {
+            get { return this.history; }
+            set
+            {
+                this.history = value;
                 OnPropertyChanged();
             }
         }
@@ -67,19 +79,33 @@ namespace RomanNumerals.ViewModel
 
         private void GenerateRomanNumerals()
         {
+            // First it checks if there is a valid number
             if(!int.TryParse(NumberInput, out int inputInteger))
             {
                 MessageBox.Show("Please input valid number!");
                 return;
             }
+            // Then it checks if Generator object has been created
             if(generator == null)
             {
                 generator = new RomanNumeralGenerator();
             }
-            RomanOutput = generator.Generate(inputInteger);
-            
+            // Generates roman number
+            try
+            {
+                RomanOutput = generator.Generate(inputInteger);
+                History += string.Format("{0,-20}{1,-15}\n", inputInteger.ToString(), RomanOutput);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
         }
-        private void ClearHistory() { }
+        private void ClearHistory()
+        {
+            History = string.Format("{0,-20}{1,-15}\n", "Arabic", "Roman");
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         

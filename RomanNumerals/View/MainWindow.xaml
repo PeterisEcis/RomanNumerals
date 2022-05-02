@@ -46,7 +46,7 @@
             Margin="5"
             VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch"
-            IsEnabled="False"
+            IsReadOnly="True"
             Text="{Binding RomanOutput}"/>
         <Button
             Grid.Row="1"
@@ -62,7 +62,10 @@
             Grid.ColumnSpan="2"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            Margin="5"/>
+            Margin="5"
+            VerticalScrollBarVisibility="Auto"
+            IsReadOnly="True"
+            Text="{Binding History}" FontFamily="Courier New"/>
         <Button
             Grid.Row="2"
             Grid.Column="2"
