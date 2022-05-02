@@ -38,6 +38,7 @@
             Margin="5"
             VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch"
+            PreviewTextInput="NumberValidationTextBox"
             Text="{Binding NumberInput}"/>
         <TextBox
             Grid.Row="1"
