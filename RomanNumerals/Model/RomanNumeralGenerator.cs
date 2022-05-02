@@ -10,7 +10,7 @@ namespace RomanNumerals
         public string Generate(int number)
         {
             // First we must check if the number is in range
-            if ((number < 0) || (number > 3999)) throw new ArgumentOutOfRangeException("insert value betwheen 1 and 3999");
+            if ((number < 0) || (number > 3999)) throw new ArgumentOutOfRangeException("insert value between 1 and 3999");
             // Then i recursively translate left most digit to roman numeral
             if (number < 1) return string.Empty;
             if (number >= 1000) return "M" + Generate(number - 1000);
