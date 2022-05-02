@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace RomanNumerals.ViewModel
-{ 
+{
     // To be honest I am not sure about this class, I just reused it from previous projects
     // I know that it is necessary to run commands in MainWindowViewModel but I couldn't explain everything that is going on here
     public class RelayCommand<T> : ICommand

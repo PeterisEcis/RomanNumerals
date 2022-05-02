@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RomanNumerals
+﻿namespace RomanNumerals
 {
+    // Interface that was mentioned in the homework
     public interface IRomanNumeralGenerator
     {
         string Generate(int number);

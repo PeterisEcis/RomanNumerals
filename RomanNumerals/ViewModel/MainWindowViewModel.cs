@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace RomanNumerals.ViewModel
 {
+    // Since the Generate method itself was quite easy to solve, I decided to demonstrate my skills by adding a GUI using MVVM architecture
+    // MVVM allows to create logic independant from UI
+    // So that for example by using the same bindings I could theoretically change the frontend and
+    // Make it a mobile app instead
+
+    // Here we have MainWindowViewModel that implements INotifyPropertyChanged interface
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        // We have 3 strings that are used for bindings and 2 commands used for buttons
         private string numberInput;
         private string romanOutput;
         private ICommand generateCommand;
@@ -21,7 +24,9 @@ namespace RomanNumerals.ViewModel
 
         public MainWindowViewModel()
         {
+            // I create RomanNumeralGenerator object here at the start of the app so that I don't have to create it every time i press a button
             generator = new RomanNumeralGenerator();
+            // This is a header for the History TextBox that will save all generated roman numerals
             History = string.Format("{0,-20}{1,-15}\n", "Arabic", "Roman");
         }
 
@@ -31,6 +36,7 @@ namespace RomanNumerals.ViewModel
             set
             {
                 this.numberInput = value;
+                // We need to use OnPropertyChanged method to update the bindings
                 OnPropertyChanged();
             }
         }
@@ -61,6 +67,7 @@ namespace RomanNumerals.ViewModel
             {
                 return clearCommand ?? (clearCommand = new RelayCommand(x =>
                 {
+                    // When Clear button is pressed, ClearHistory() method is executed
                     ClearHistory();
                 }));
             }
@@ -72,6 +79,7 @@ namespace RomanNumerals.ViewModel
             {
                 return generateCommand ?? (generateCommand = new RelayCommand(x =>
                 {
+                    // When Generate button is pressed, GenerateRomanNumerals() is executed
                     GenerateRomanNumerals();
                 }));
             }
@@ -80,7 +88,8 @@ namespace RomanNumerals.ViewModel
         private void GenerateRomanNumerals()
         {
             // First it checks if there is a valid number
-            if(!int.TryParse(NumberInput, out int inputInteger))
+            // We already have NumberValidationTextBox method in MainWindow.xaml.cs but it is not perfect since it allows spaces and copied text
+            if (!int.TryParse(NumberInput, out int inputInteger))
             {
                 MessageBox.Show("Please input valid number!");
                 return;
@@ -94,6 +103,7 @@ namespace RomanNumerals.ViewModel
             try
             {
                 RomanOutput = generator.Generate(inputInteger);
+                // Adds generated number to history string that will be displayed in History TextBox
                 History += string.Format("{0,-20}{1,-15}\n", inputInteger.ToString(), RomanOutput);
             }
             catch (Exception e)
@@ -104,6 +114,7 @@ namespace RomanNumerals.ViewModel
         }
         private void ClearHistory()
         {
+            // Resets the History string to just a header
             History = string.Format("{0,-20}{1,-15}\n", "Arabic", "Roman");
         }
 

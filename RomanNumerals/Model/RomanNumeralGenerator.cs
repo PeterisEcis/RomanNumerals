@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RomanNumerals
 {
+    // Created Class RomanNumeralGenerator that implements IRomanNumeralGenerator
     public class RomanNumeralGenerator : IRomanNumeralGenerator
     {
+        // I decided to go for recursive solution since we have defined specific range from 1 to 3999
+        // If the method should work for larger numbers I would consider using a for loop so that program doesn't run out of memory
         public string Generate(int number)
         {
+            // First we must check if the number is in range
             if ((number < 0) || (number > 3999)) throw new ArgumentOutOfRangeException("insert value betwheen 1 and 3999");
+            // Then i recursively translate left most digit to roman numeral
             if (number < 1) return string.Empty;
             if (number >= 1000) return "M" + Generate(number - 1000);
             if (number >= 900) return "CM" + Generate(number - 900);
